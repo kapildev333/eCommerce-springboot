@@ -3,8 +3,13 @@ package org.kapildev333.ecommerce.features.authentications;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.kapildev333.ecommerce.features.address.ShippingAddress;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -26,6 +31,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShippingAddress> shippingAddresses = new ArrayList<>();
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
@@ -36,6 +44,7 @@ public class User {
 
     public User() {
     }
+
     public Long getId() {
         return id;
     }
@@ -84,4 +93,15 @@ public class User {
         this.password = password;
     }
 
+    public List<ShippingAddress> getShippingAddresses() {
+        return shippingAddresses;
+    }
+
+    public void setShippingAddresses(List<ShippingAddress> shippingAddresses) {
+        this.shippingAddresses = shippingAddresses;
+    }
+
+    public Collection<? extends GrantedAuthority> getRoles() {
+        return List.of(() -> "ROLE_USER");
+    }
 }
