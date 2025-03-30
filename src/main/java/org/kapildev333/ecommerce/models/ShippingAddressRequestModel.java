@@ -1,5 +1,6 @@
 package org.kapildev333.ecommerce.models;
 
+
 import org.kapildev333.ecommerce.features.address.ShippingAddress;
 
 public class ShippingAddressRequestModel {
@@ -9,6 +10,9 @@ public class ShippingAddressRequestModel {
     private String state;
     private String postalCode;
     private String country;
+    private Double latitude;
+
+    private Double longitude;
 
     public ShippingAddressRequestModel() {
     }
@@ -70,6 +74,22 @@ public class ShippingAddressRequestModel {
         this.country = country;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
     public static ShippingAddress getShippingAddress(ShippingAddressRequestModel shippingAddressRequestModel){
         ShippingAddress shippingAddress = new ShippingAddress();
         shippingAddress.setType(shippingAddressRequestModel.getType());
@@ -78,6 +98,8 @@ public class ShippingAddressRequestModel {
         shippingAddress.setState(shippingAddressRequestModel.getState());
         shippingAddress.setPostalCode(shippingAddressRequestModel.getPostalCode());
         shippingAddress.setCountry(shippingAddressRequestModel.getCountry());
+        shippingAddress.setLatitude(shippingAddressRequestModel.getLatitude());
+        shippingAddress.setLongitude(shippingAddressRequestModel.getLongitude());
         return shippingAddress;
     }
 }
